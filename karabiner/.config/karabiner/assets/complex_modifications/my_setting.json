@@ -1,0 +1,26 @@
+{
+  "title": "My Settings",
+  "rules": [
+    {
+      "description": "Ctrl+h -> Backspace",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "h",
+            "modifiers": {
+              "mandatory": [
+                "control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "delete_or_backspace"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
