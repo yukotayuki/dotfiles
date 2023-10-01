@@ -1,0 +1,29 @@
+[add "interactive"]
+	useBuiltin = false
+
+[alias]
+	lg = "log --graph --decorate --abbrev-commit --format=format:'%C(blue)%h%C(reset) - %C(green)(%ar)%C(reset)%C(yellow)%d%C(reset)\n  %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'"
+
+[core]
+	pager = "delta"
+
+[delta]
+	light = false
+	navigate = true
+	side-by-side = true
+
+[diff]
+	colorMoved = "default"
+
+[ghq]
+	root = "~/work/repositories"
+
+[interactive]
+	diffFilter = "delta --color-only"
+
+[merge]
+	conflictstyle = "diff3"
+
+[user]
+	email = "yukota.yuki@hotmail.com"
+	name = "joo"
