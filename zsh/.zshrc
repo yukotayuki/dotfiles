@@ -18,15 +18,24 @@ zinit light-mode for \
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source $ZHOMEDIR/zinit_plugins.zsh
-source $ZHOMEDIR/configs/aliases.zsh
 source $ZHOMEDIR/configs/setopt.zsh
 source $ZHOMEDIR/configs/anyenv.zsh
 
 # autoload
+# zsh-completions
+if [[ $(uname) == 'Darwin' ]]; then
+    # mac
+    fpath=( /opt/homebrew/share/zsh-completions "${fpath[@]}" )
+else
+    # linux
+fi
+# add custom completions
+fpath=(~/.zsh/completion $fpath)
 autoload -Uz colors && colors
 autoload -Uz compinit && compinit
 
 source $ZHOMEDIR/configs/misc.zsh
+source $ZHOMEDIR/configs/aliases.zsh
 
 # flatpak for nixos
 if [[ $DISTRI == 'nixos' ]]; then
