@@ -101,4 +101,7 @@ zsdoc/data
 /tests/_output/*
 !/tests/_output/.gitkeep
 
+# tmux
+tmux/.config/tmux/plugins
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,linux,vim,zsh
