@@ -18,10 +18,8 @@ zinit light-mode for \
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source $ZHOMEDIR/zinit_plugins.zsh
-source $ZHOMEDIR/configs/setopt.zsh
-source $ZHOMEDIR/configs/anyenv.zsh
 
-# autoload
+# autoload - compinitの前に設定しないと有効にならない
 # zsh-completions
 if [[ $(uname) == 'Darwin' ]]; then
     # mac
@@ -29,51 +27,37 @@ if [[ $(uname) == 'Darwin' ]]; then
 else
     # linux
 fi
+
 # add custom completions
 fpath=(~/.zsh/completion $fpath)
+fpath=(${ASDF_DIR}/completions $fpath)
+
 autoload -Uz colors && colors
 autoload -Uz compinit && compinit
 
-source $ZHOMEDIR/configs/misc.zsh
-source $ZHOMEDIR/configs/aliases.zsh
+# autoload - compinitの後に設定しないと有効にならない
+## kubectlの補完
+source <(kubectl completion zsh)
+# direnvの補完 - autoloadの前に設定しても問題ない
+eval "$(direnv hook zsh)"
+# devboxの補完
+eval "$(devbox completion zsh)"
+# limactlの補完
+eval "$(limactl completion zsh)"
+
+# emacsモード
+bindkey -e
+
+source $ZHOMEDIR/configs/1_setopt.zsh
+source $ZHOMEDIR/configs/2_env.zsh
+source $ZHOMEDIR/configs/3_zstyle.zsh
+source $ZHOMEDIR/configs/4_cdr.zsh
+source $ZHOMEDIR/configs/5_fzf.zsh
+source $ZHOMEDIR/configs/6_prompt.zsh
+source $ZHOMEDIR/configs/7_aliases.zsh
+source $ZHOMEDIR/configs/app_configs/asdf.zsh
 
 # flatpak for nixos
 if [[ $DISTRI == 'nixos' ]]; then
     source /run/current-system/sw/etc/profile.d/flatpak.sh
 fi
-
-# setopt magic_equal_subst
-
-# エイリアスを設定
-if (( $+commands[arch] )); then
-  alias x64='exec arch -arch x86_64 "$SHELL"'
-  alias a64='exec arch -arch arm64e "$SHELL"'
-fi
-
-# TODO: 切り替えるパスをちゃんと設定したいところ
-## 上記エイリアスが実行されると環境変数を書き換えます
-#if [[ $(uname -m) == "x86_64" ]]; then
-#  typeset -U path PATH
-#  path=(
-#    /usr/local/bin(N-/)
-#    /usr/local/sbin(N-/)
-#    /usr/bin
-#    /usr/sbin
-#    /bin
-#    /sbin
-#    /Library/Apple/usr/bin
-#  )
-#else
-#  typeset -U path PATH
-#  path=(
-#    /opt/homebrew/bin(N-/)
-#    /opt/homebrew/sbin(N-/)
-#    /usr/bin
-#    /usr/sbin
-#    /bin
-#    /sbin
-#    /usr/local/bin
-#    /usr/local/sbin
-#    /Library/Apple/usr/bin
-#  )
-#fi
