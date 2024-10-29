@@ -24,15 +24,13 @@ setopt auto_cd
 ## → cdの補完にも表示されるの無効
 # cdpath=(.. ~ $DOTDIR)
 
-## cdの履歴を自動でpush
-setopt auto_pushd
-
-
 # --------------
 # cdr関連の設定
 # --------------
-setopt AUTO_PUSHD # cdしたら自動でディレクトリスタックする
-setopt pushd_ignore_dups # 同じディレクトリは追加しない
+## cdの履歴を自動でpush
+setopt auto_pushd
+ # 同じディレクトリは追加しない
+setopt pushd_ignore_dups
 
 
 # --------------

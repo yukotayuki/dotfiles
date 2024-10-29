@@ -4,40 +4,9 @@
 #
 ###################################################
 
-export ZDOTDIR=$HOME
-export REPODIR=$HOME/work/repositories
-# export DOTDIR=$REPODIR/github.com/yukotayuki/nix-dotfiles
+# .zshenvファイルの読込優先度が高く、他の設定ファイルで環境変数が上書きされていることがある
+# 以下のコマンドで設定ファイルが読み込まれる順番と環境変数の設定内容を確認すること
+# -> zsh -l -o SOURCE_TRACE
+
+# export ZDOTDIR=$HOME
 export ZHOMEDIR=$HOME/.config/zsh
-
-export HISTFILE=~/.histfile
-export HISTSIZE=100000
-export SAVEHIST=100000
-export LANG=en_US.UTF-8
-
-if [ $(uname) = "Linux" ]; then
-    export DISTRI=$(. /etc/lsb-release; echo $DISTRIB_ID)
-fi
-
-if [ "$(uname -m)" = "arm64" ]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-  export PATH="/opt/homebrew/bin:$PATH"
-fi
-
-# vim settings
-export VIMLSP="vim-lsp"
-# export VIMLSP="coc"
-
-# fzf
-export FZF_DEFAULT_OPTS='--height 40%  --reverse --border --info=inline'
-export FZF_COMPLETION_TRIGGER=","
-export FZF_COMPLETION_OPTS="
-  --height 40%  --reverse --border --info=inline 
-  --preview 'bat -n --color=always {}'
-"
-
-export FZF_CTRL_T_COMMAND='fd --type f'
-export FZF_CTRL_T_OPTS="
-  --preview 'bat -n --color=always {}'
-  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
-
-export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
