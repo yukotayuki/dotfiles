@@ -17,7 +17,7 @@ nnoremap <Space><S-d> :sp<CR>
 
 " open setting files
 " nnoremap <Space>, :edit $MYVIMRC<CR>
-nnoremap <Space>, :edit $DOTDIR/.config/nvim/init.vim<CR>
+nnoremap <Space>, :edit $HOME/.config/nvim/init.vim<CR>
 nnoremap ,t :edit ~/.config/nvim/toml<CR>
 
 " 移動
