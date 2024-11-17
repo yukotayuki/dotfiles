@@ -9,6 +9,7 @@ if [[ $(uname) == 'Darwin' ]]; then
     alias vim='nvim'
     source $ZHOMEDIR/functions/ssh.zsh
     source $ZHOMEDIR/functions/gssh.zsh
+    source $ZHOMEDIR/functions/change_vim_config.zsh
     alias ssh=ssh_change_profile
     compdef ssh_change_profile=ssh
 else
