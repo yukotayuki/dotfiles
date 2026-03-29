@@ -14,6 +14,9 @@ return {
     },
     config = function(_, opts)
       local lspconfig = require('lspconfig')
+      lspconfig.biome.setup({
+        cmd = { 'npx', 'biome', 'lsp-proxy' }
+      })
 
       require('mason-lspconfig').setup(opts)
       require('mason-lspconfig').setup_handlers({
@@ -52,6 +55,8 @@ return {
         'lua_ls',
         -- 'harper_ls',
         'ts_ls',
+        -- 'shellcheck',
+        'shfmt',
       },
       automatic_installation = true,
     }

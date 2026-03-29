@@ -17,6 +17,9 @@ return {
   },
   {
     'nvim-neo-tree/neo-tree.nvim',
+    -- event = { 'BufNewFile', 'BufReadPre' },
+    -- BufWinEnter, BufEnter, VimEnter
+    event = { 'BufEnter' },
     branch = 'v3.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -25,8 +28,39 @@ return {
       's1n7ax/nvim-window-picker',
     },
     config = function(_, opts)
-      vim.notify('Loading neo-tree')
+      -- opts.event_handers = opts.event_handers or {}
+      -- vim.list_extend(opts.event_handers, {
+      --   {
+      --     event = 'neo_tree_buffer_enter',
+      --     handler = function()
+      --       vim.notify('buf enter')
+      --       print('buf enter')
+      --       -- This effectively hides the cursor
+      --       -- vim.cmd 'highlight! Cursor blend=100'
+      --       vim.cmd 'highlight! Cursor guibg=#5f87af blend=0'
+      --     end
+      --   },
+      --   {
+      --     event = 'neo_tree_buffer_leave',
+      --     handler = function()
+      --       vim.notify('buf leave')
+      --       print('buf leave')
+      --       -- Make this whatever your current Cursor highlight group is.
+      --       vim.cmd 'highlight! Cursor guibg=#5f87af blend=0'
+      --     end
+      --   }
+      -- })
+      -- -- print(opts.event_handers[1].event)
       require('neo-tree').setup(opts)
+      if vim.fn.argc() == 0 and vim.fn.getcwd() then
+        vim.cmd('Neotree show focus float')
+      end
+
+      -- -- これで無理やり色を変えることはできそう
+      -- -- ただし、どのファイルやディレクトリも全て同じ色分けにされてしまう
+      -- vim.cmd([[
+      --   highlight! link NeoTreeDotfile OtherHighlightGroup
+      -- ]])
     end,
     opts = function()
       local function getTelescopeOpts(state, path)
@@ -75,6 +109,10 @@ return {
               ['tg'] = 'telescope_grep',
             },
           },
+          filtered_items = {
+            visible = false,
+            hide_dotfiles = false,
+          }
         },
         commands = {
           telescope_find = function(state)
